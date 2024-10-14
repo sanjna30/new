@@ -3,12 +3,89 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ritu-test-project</title>
-    <link rel="stylesheet" href="style.css">
-    
+    <title>Chat Application</title>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
- 
+<body class="bg-gray-100 h-screen">
+    <!-- Landing Page -->
+    <div id="landing-page" class="container mx-auto p-4 max-w-md">
+        <h1 class="text-3xl font-bold mb-6 text-center">Welcome to Chat App</h1>
+        <form id="user-form" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="name">
+                    Name
+                </label>
+                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="name" type="text" placeholder="Enter your name" required>
+            </div>7  
+            <div class="mb-6">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="email">
+                    Email
+                </label>
+                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="email" type="email" placeholder="Enter your email" required>
+            </div>
+            <div class="flex items-center justify-center">
+                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
+                    Join Chat
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Chat Page -->
+    <div id="chat-page" class="container mx-auto p-4 max-w-2xl hidden">
+        <div class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+            <h2 class="text-2xl font-bold mb-4">Chat Room</h2>
+            <p class="mb-4">Welcome, <span id="user-name" class="font-bold"></span>!</p>
+            <div id="chat-messages" class="bg-gray-100 p-4 h-64 overflow-y-auto mb-4 rounded">
+                <!-- Chat messages will be displayed here -->
+            </div>
+            <form id="chat-form" class="flex">
+                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mr-2" id="message" type="text" placeholder="Type your message" required>
+                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
+                    Send
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const landingPage = document.getElementById('landing-page');
+        const chatPage = document.getElementById('chat-page');
+        const userForm = document.getElementById('user-form');
+        const chatForm = document.getElementById('chat-form');
+        const userNameSpan = document.getElementById('user-name');
+
+        userForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            
+            // Here you would typically send this data to your backend
+            console.log('User joined:', { name, email });
+
+            // Switch to chat page
+            landingPage.classList.add('hidden');
+            chatPage.classList.remove('hidden');
+            userNameSpan.textContent = name;
+        });
+
+        chatForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const message = document.getElementById('message').value;
+            
+            // Here you would typically send this message to your backend
+            console.log('Message sent:', message);
+
+            // Clear the input field
+            document.getElementById('message').value = '';
+
+            // For demo purposes, let's add the message to the chat
+            const chatMessages = document.getElementById('chat-messages');
+            const messageElement = document.createElement('p');
+            messageElement.textContent = message;
+            chatMessages.appendChild(messageElement);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        });
+    </script>
 </body>
 </html>
-
